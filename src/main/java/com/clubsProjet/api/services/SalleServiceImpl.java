@@ -2,15 +2,25 @@ package com.clubsProjet.api.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.clubsProjet.api.DTO.SalleDTO;
 import com.clubsProjet.api.exceptions.SalleNotFoundException;
 import com.clubsProjet.api.models.Salle;
 import com.clubsProjet.api.repositories.SalleRepository;
 
+@Service
 public class SalleServiceImpl implements SalleService{
 
 	private SalleRepository salleRepository;
 	
+	
+	
+	public SalleServiceImpl(SalleRepository salleRepository) {
+		super();
+		this.salleRepository = salleRepository;
+	}
+
 	@Override
 	public List<Salle> getAllSalles() {
 		// TODO Auto-generated method stub
@@ -31,7 +41,7 @@ public class SalleServiceImpl implements SalleService{
 		s.setLibelle(salle.getLibelle());
 		s.setDepartement(salle.getDepartement());;
 		s.setReserve(salle.isReserve());
-		return s;
+		return this.salleRepository.save(s);
 	}
 
 	@Override
